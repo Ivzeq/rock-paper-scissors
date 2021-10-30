@@ -59,13 +59,46 @@ function playRound(playerSelection, computerSelection) {
         }
     }
     
-    console.log(playerSelection);
-    console.log(computerSelection);
+    console.log('Player ' + playerSelection);
+    console.log('Computer ' + computerSelection);
 
     return roundWinner;
 }
 
+// Play a best of 5
+// Keep playing until either the player or the computer reaches 3 wins
+// Keep score and declare the winner once the game is over
 
-let playerSelection = playerPlay();
-let computerSelection = computerPlay();
-playRound(playerSelection, computerSelection);
+function game(){
+    let playerWins = 0;
+    let computerWins = 0;
+    let roundWinner;
+    let playerSelection;
+    let computerSelection;
+
+    while (playerWins < 3 && computerWins < 3) {
+        playerSelection = playerPlay();
+        computerSelection = computerPlay();
+        roundWinner = playRound(playerSelection,computerSelection);
+
+        if (roundWinner == 'Player') {
+            playerWins++;
+        }
+        else if (roundWinner == 'Computer') {
+            computerWins++;
+        }
+        console.log(roundWinner + ' wins the round! ' + playerWins + '-' + computerWins)
+        console.log('---------------------');
+    }
+
+    if (playerWins == 3) {
+        console.log('Player has won 3 rounds! Player wins the game!');
+    }
+    else if (computerWins == 3) {
+        console.log('Computer has won 3 rounds! Player loses the game!');
+    }
+
+    console.log('+++++++++++++++++++');
+}
+
+game();
