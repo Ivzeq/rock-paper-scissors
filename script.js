@@ -2,19 +2,19 @@
 
 function computerPlay(){
     let randomNumber = Math.floor(Math.random()*10);
-    let continueRound = true;
+    let findValidValue = true;
     let computerSelection;
 
-    while (continueRound) {
+    while (findValidValue) {
         if (randomNumber === 1 || randomNumber === 2 || randomNumber === 3) {
             computerSelection = 'Rock';
-            continueRound = false;
+            findValidValue = false;
         } else if (randomNumber === 4 || randomNumber === 5 || randomNumber === 6) {
             computerSelection = 'Paper';
-            continueRound = false;
+            findValidValue = false;
         } else if (randomNumber === 7 || randomNumber === 8 || randomNumber === 9) {
             computerSelection = 'Scissors';
-            continueRound = false;
+            findValidValue = false;
         } else{
             randomNumber = Math.floor(Math.random()*10);
         }
@@ -43,11 +43,11 @@ function playRound(playerSelection) {
     }
     score.textContent = playerWins + ' - ' + computerWins;
 
-    if (playerWins == 3) {
-        gameResult.textContent += "Player has won 3 rounds! Player wins the best of five!";
+    if (playerWins == 5) {
+        gameResult.textContent = "Player has won 5 rounds! Player wins!";
     }
-    else if (computerWins == 3) {
-        gameResult.textContent += "Computer has won 3 rounds! Player loses the best of five!";
+    else if (computerWins == 5) {
+        gameResult.textContent = "Computer has won 5 rounds! Player loses!";
     }
 }
 
@@ -57,6 +57,14 @@ function addPlayRound(button){
     })
 }
 
+function restartScore(){
+    playerWins = 0;
+    computerWins = 0
+    score.textContent = playerWins + ' - ' + computerWins;
+    roundResult.textContent = "Choose an option to start game";
+    gameResult.textContent = "";
+}
+
 let playerWins = 0;
 let computerWins = 0;
 
@@ -64,7 +72,9 @@ const playerButton = document.querySelectorAll('.player-button');
 const roundResult = document.querySelector('#round-result');
 const score = document.querySelector('#score');
 const gameResult = document.querySelector('#game-result');
+const restartButton = document.querySelector('#restart');
 
 playerButton.forEach(addPlayRound);
+restartButton.addEventListener('click',restartScore);
 score.textContent = playerWins + ' - ' + computerWins;
-roundResult.textContent = "Choose an option to start game"
+roundResult.textContent = "Choose an option to start game";
